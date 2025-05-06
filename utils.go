@@ -12,7 +12,7 @@ import (
 )
 
 // sliceSeparator is a separator for slice elements in string.
-// Used unicocde control character 001F - record separator(RS)
+// Used unicocde control character 001E - record separator(RS)
 // https://www.unicode.org/charts/nameslist/n_0000.html
 const sliceSeparator = "\u001E"
 
