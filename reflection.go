@@ -314,7 +314,7 @@ func (l *Loader) setSlice(field *fieldData, value string) error {
 		return nil
 	}
 
-	vals := strings.Split(value, ",")
+	vals := strings.Split(value, sliceSeparator)
 	slice := reflect.MakeSlice(field.field.Type, len(vals), len(vals))
 	for i, val := range vals {
 		val = strings.TrimSpace(val)

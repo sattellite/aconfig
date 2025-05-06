@@ -11,6 +11,11 @@ import (
 	"unicode"
 )
 
+// sliceSeparator is a separator for slice elements in string.
+// Used unicocde control character 001F - record separator(RS)
+// https://www.unicode.org/charts/nameslist/n_0000.html
+const sliceSeparator = "\u001E"
+
 func assertStruct(x interface{}) {
 	if x == nil {
 		panic("aconfig: destination cannot be nil")
@@ -185,7 +190,7 @@ func sliceToString(curr interface{}) string {
 		b := &strings.Builder{}
 		for i, v := range curr {
 			if i > 0 {
-				b.WriteByte(',')
+				b.WriteString(sliceSeparator)
 			}
 			fmt.Fprint(b, v)
 		}

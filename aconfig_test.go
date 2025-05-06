@@ -1618,6 +1618,27 @@ func TestSliceOfDeepStructs(t *testing.T) {
 	mustEqual(t, cfg, want)
 }
 
+func TestSliceOfStrings(t *testing.T) {
+	type TestConfig struct {
+		Strings []string
+	}
+	var cfg TestConfig
+	loader := LoaderFor(&cfg, Config{
+		SkipDefaults: true,
+		SkipEnv:      true,
+		SkipFlags:    true,
+		Files:        []string{"testdata/slice-strings.json"},
+	})
+
+	failIfErr(t, loader.Load())
+
+	want := TestConfig{
+		Strings: []string{"hello", "world", "comma1, comma2, comma3,"},
+	}
+
+	mustEqual(t, cfg, want)
+}
+
 func failIfOk(tb testing.TB, err error) {
 	tb.Helper()
 	if err == nil {
