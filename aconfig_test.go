@@ -1624,10 +1624,11 @@ func TestSliceOfStrings(t *testing.T) {
 	}
 	var cfg TestConfig
 	loader := LoaderFor(&cfg, Config{
-		SkipDefaults: true,
-		SkipEnv:      true,
-		SkipFlags:    true,
-		Files:        []string{"testdata/slice-strings.json"},
+		SkipDefaults:   true,
+		SkipEnv:        true,
+		SkipFlags:      true,
+		Files:          []string{"testdata/slice-strings.json"},
+		SliceSeparator: "\u001E",
 	})
 
 	failIfErr(t, loader.Load())

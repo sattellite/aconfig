@@ -98,6 +98,9 @@ type Config struct {
 	//		".env": aconfigdotenv.New(),
 	// 	}
 	FileDecoders map[string]FileDecoder
+
+	// SliceSeparator hold the separator for slice values. Default is ",".
+	SliceSeparator string
 }
 
 // FileDecoder is used to read config from files. See aconfig submodules.
@@ -204,6 +207,10 @@ func (l *Loader) init() {
 	if l.config.FileFlag != "" {
 		// TODO: should be prefixed ?
 		l.flagSet.String(l.config.FileFlag, "", "config file param")
+	}
+
+	if l.config.SliceSeparator == "" {
+		l.config.SliceSeparator = ","
 	}
 }
 

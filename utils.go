@@ -11,11 +11,6 @@ import (
 	"unicode"
 )
 
-// sliceSeparator is a separator for slice elements in string.
-// Used unicocde control character 001E - record separator(RS)
-// https://www.unicode.org/charts/nameslist/n_0000.html
-const sliceSeparator = "\u001E"
-
 func assertStruct(x interface{}) {
 	if x == nil {
 		panic("aconfig: destination cannot be nil")
@@ -184,13 +179,13 @@ func (d *jsonDecoder) DecodeFile(filename string) (map[string]interface{}, error
 	return raw, nil
 }
 
-func sliceToString(curr interface{}) string {
+func (l *Loader) sliceToString(curr interface{}) string {
 	switch curr := curr.(type) {
 	case []interface{}:
 		b := &strings.Builder{}
 		for i, v := range curr {
 			if i > 0 {
-				b.WriteString(sliceSeparator)
+				b.WriteString(l.config.SliceSeparator)
 			}
 			fmt.Fprint(b, v)
 		}

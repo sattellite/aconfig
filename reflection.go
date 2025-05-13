@@ -198,7 +198,7 @@ func (l *Loader) setFieldData(field *fieldData, value interface{}) error {
 
 	case reflect.Slice:
 		if isPrimitive(field.field.Type.Elem()) {
-			return l.setSlice(field, sliceToString(value))
+			return l.setSlice(field, l.sliceToString(value))
 		}
 
 		in := reflect.ValueOf(value)
@@ -314,7 +314,7 @@ func (l *Loader) setSlice(field *fieldData, value string) error {
 		return nil
 	}
 
-	vals := strings.Split(value, sliceSeparator)
+	vals := strings.Split(value, l.config.SliceSeparator)
 	slice := reflect.MakeSlice(field.field.Type, len(vals), len(vals))
 	for i, val := range vals {
 		val = strings.TrimSpace(val)
